@@ -17,8 +17,7 @@ let PLAYERS = [
 ];
 
 function pointsSet(players){
-  let addPoints = players.map(players => players.score);
-  return addPoints.reduce((playerA, playerB) => {playerA + playerB});
+  return players.map(player => player.score).reduce((playerA, playerB) => playerA + playerB);
 }
 const Header = ({players}) => {
   return (
@@ -46,10 +45,40 @@ const Header = ({players}) => {
     </div>
   );
 }
+const PlayerList = ({players}) => {
+  return (
+    <div>
+      {
+        players.map((item) => {
+          return <div className='player' key={item.name}>
+            <div className='player-name'>{item.name}</div>
+            <div className='player-score counter'>
+              <button className='counter-action decrement'>-</button>
+              <span className='counter-score'>{item.score}</span>
+              <button className='counter-action increment'>+</button>
+            </div>
+          </div>
+        })
+      }
+    </div>
+  );
+}
+const PlayerForm = () => {
+  return (
+    <div className='add-player-form'>
+      <form>
+        <input type="text" placeholder='ENTER A NAME' />
+        <input type="submit" value='add player' />
+      </form>
+    </div>
+  );
+}
 const Application = ({ title, players }) => {
   return (
     <div className='scoreboard'>
       <Header players={players} />
+      <PlayerList players={players}/>
+      <PlayerForm />    
     </div>
   );
 }
